@@ -1,0 +1,6 @@
+#emacs temp files
+*.*~
+
+#Erlang
+*.beam
+erl_crash.dump
