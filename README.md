@@ -1,0 +1,1 @@
+Skratchpad for HackerRank.
