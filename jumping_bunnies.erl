@@ -12,6 +12,7 @@
 -module(jumping_bunnies).
 -export([main/0]).
 
+
 main() ->
     {ok,[Count]} = io:fread("","~d"),
     Numbers = [begin 
@@ -22,11 +23,14 @@ main() ->
     io:format("~p", [Multiply]).
 
 common_multiply(A,B) ->
-    common_multiply(A,B,A,B).
+  (A div gcd(A,B)) * B.
 
-common_multiply(_A,_B, MultiA, MultiB) when MultiA =:= MultiB ->
-    MultiA;
-common_multiply( A, B, MultiA, MultiB) when MultiA < MultiB ->
-    common_multiply( A, B, MultiA + A, MultiB);
-common_multiply( A, B, MultiA, MultiB) when MultiB < MultiA ->
-    common_multiply( A, B, MultiA, MultiB + B).
+
+gcd(0,B) ->
+  B;
+gcd(A,B) when B > A ->
+  gcd(B,A);
+gcd(A,B) ->
+  gcd(A rem B, B).
+
+
