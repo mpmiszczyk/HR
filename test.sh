@@ -1,19 +1,14 @@
+#!/usr/bin/env bash
+problem=jumping_bunnies
 
-problem=$1
-
-inputs=(
-"3
-10 4
-1 100
-288 240"
-'1
-10 4')
+inputs=("3
+2 3 4
+" "10
+597 322 187 734 498 215 176 451 114 204")
 
 outputs=(
-"2
-1
-10"
-"2")
+"12"
+"1467174839068147440")
 
 
 
@@ -25,17 +20,20 @@ erl -sname HackerRank@localhost -noshell -run $module main -run init stop <<< "$
 }
 
 
-
-for i in "${#inputs[@]}"
+for i in "${!inputs[@]}"
 do
-    out=$(run_erl $problem "$inputs[i]")
-    if [[ "$outputs[i]" != "$out" ]]
-       then 
-           echo "bad results"
-           echo ">>> in:"
-           echo "$i"
-           echo ">>> out: "
-           echo "$out"
-           exit 2
+    out=$(run_erl $problem "${inputs[$i]}")
+    if [[ "${outputs[$i]}" != "$out" ]]
+    then
+        echo "bad results"
+        echo ">>> in:"
+        echo "${inputs[$i]}"
+        echo ">>> out: "
+        echo "$out"
+        echo ">>> should:"
+        echo ${outputs[$i]}
+        exit 2
     fi
+    echo ">>> out:"
+    echo $out
 done
